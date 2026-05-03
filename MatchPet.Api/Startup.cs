@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MatchPet.Infrastructure.Services.Contracts;
+using MatchPet.Infrastructure.Web.Middlewares;
 using MatchPet.Infrastructure.Web.Swagger;
+using MatchPet.Infrastructure.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using MatchPet.Infrastructure.Web.Middlewares;
 
 namespace MatchPet.Api;
 
 public class Startup
 {
-  public void ConfigureServices(IServiceCollection services)
+  public void ConfigureServices(IServiceCollection services, ConfigurationManager configuration)
   {
-    ConfigureDbContext(services);
-
     services
       .AddControllers()
       .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -42,6 +42,14 @@ public class Startup
       });
     });
 
+    services.AddStackExchangeRedisCache(opt =>
+    {
+      opt.Configuration = configuration["Redis:Connection"];
+    });
+    
+    ConfigureDbContext(services);
+    ConfigureDependencies(services);
+    
     var secret = Environment.GetEnvironmentVariable("JWT_SECRET");
 
     if (string.IsNullOrEmpty(secret))
@@ -94,7 +102,12 @@ public class Startup
     app.UseHttpsRedirection();
   }
 
-  private void ConfigureDbContext(IServiceCollection services)
+  private static void ConfigureDependencies(IServiceCollection services)
+  {
+    services.AddScoped<ICacheService, RedisCacheService>();
+  }
+  
+  private static void ConfigureDbContext(IServiceCollection services)
   {
     
   }
