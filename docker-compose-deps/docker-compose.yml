@@ -19,7 +19,7 @@ services:
       - redis
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Default=server=mysql;port=3306;database=matchpet;user=root;password=root
+      - ConnectionStrings__MatchPet=server=mysql;port=3306;database=matchpet;user=root;password=root
       - Redis__Connection=redis:6379
     networks:
       - matchpet

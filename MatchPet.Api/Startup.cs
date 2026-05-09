@@ -3,8 +3,10 @@ using MatchPet.Infrastructure.Services.Contracts;
 using MatchPet.Infrastructure.Web.Middlewares;
 using MatchPet.Infrastructure.Web.Swagger;
 using MatchPet.Infrastructure.Services;
+using MatchPet.Infrastructure.Database;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
@@ -47,7 +49,7 @@ public class Startup
       opt.Configuration = configuration["Redis:Connection"];
     });
     
-    ConfigureDbContext(services);
+    ConfigureDbContext(services, configuration);
     ConfigureDependencies(services);
     
     var secret = Environment.GetEnvironmentVariable("JWT_SECRET");
@@ -107,8 +109,19 @@ public class Startup
     services.AddScoped<ICacheService, RedisCacheService>();
   }
   
-  private static void ConfigureDbContext(IServiceCollection services)
+  private static void ConfigureDbContext(IServiceCollection services, ConfigurationManager configuration)
   {
+    var connectionString = configuration.GetConnectionString("MatchPet") ?? string.Empty;
     
+    services.AddDbContext<MatchPetDbContext>((_, options) =>
+    {
+      options
+        .UseMySql(
+          connectionString,
+          new MySqlServerVersion(new Version())
+        )
+        .EnableSensitiveDataLogging()
+        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    });
   }
 }
