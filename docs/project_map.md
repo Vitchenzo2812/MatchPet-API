@@ -1,0 +1,40 @@
+# Project Map
+
+## Root Directory
+- `.dockerignore`: Specifies files to ignore when building Docker images.
+- `.gitignore`: Specifies files to ignore in version control using Git.
+- `Dockerfile`: Contains instructions for building the Docker image of the project.
+- `MatchPet.sln`: The solution file for the .NET project.
+- `MatchPet.sln.DotSettings.user`: User-specific settings for the solution.
+- `docker-compose-deps/`: Directory containing configuration files for docker-compose dependencies.
+  - `docker-compose.yml`: Configuration file for defining and running multi-container Docker applications.
+  - `tempo-data/`: Temporary data storage directory.
+- `docs/`: Documentation directory (currently empty).
+- `MatchPet.Api/`: Contains the backend API project.
+  - `appsettings.Development.json`: Configuration settings for development environment.
+  - `appsettings.json`: General configuration settings.
+  - `MatchPet.Api.csproj`: Project file for the MatchPet.Api project.
+  - `Program.cs`: Entry point of the application.
+  - `Startup.cs`: Startup configuration for the application.
+  - `Controllers/`: Directory containing API controllers.
+  - `Properties/`: Contains general properties and metadata for the project.
+- `MatchPet.Features/`: Contains features of the project.
+  - `MatchPet.Features.csproj`: Project file for MatchPet.Features.
+  - `Forms/`: Directory containing form-related code.
+- `MatchPet.Infrastructure/`: Contains infrastructure components.
+  - `MatchPet.Infrastructure.csproj`: Project file for MatchPet.Infrastructure.
+  - `Database/`: Directory containing database-related code.
+  - `Services/`: Directory containing service-related code.
+  - `Web/`: Directory containing web-related code.
+- `MatchPet.Shared/`: Contains shared components and models.
+  - `MatchPet.Shared.csproj`: Project file for MatchPet.Shared.
+  - `Errors/`: Directory containing error handling code.
+  - `Models/`: Directory containing data models.
+  - `Repositories/`: Directory containing repository classes.
+  - `Services/`: Directory containing service classes.
+- `telemetry/`: Contains monitoring and logging configurations.
+  - `config.alloy`: Configuration file for Alloy.
+  - `loki-config.yml`: Configuration file for Loki.
+  - `prometheus.yml`: Configuration file for Prometheus.
+  - `tempo.yml`: Configuration file for Tempo.
+  - `grafana/`: Directory containing Grafana configuration files.

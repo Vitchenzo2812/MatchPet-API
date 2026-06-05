@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchPet.Shared", "MatchPet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchPet.Features", "MatchPet.Features\MatchPet.Features.csproj", "{1B9AB841-2E08-41BF-8C89-3677BC4B6237}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchPet.Tests", "MatchPet.Tests\MatchPet.Tests.csproj", "{EFB8B4C6-55F3-493F-A97F-68AEF1B8D31B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{1B9AB841-2E08-41BF-8C89-3677BC4B6237}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B9AB841-2E08-41BF-8C89-3677BC4B6237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B9AB841-2E08-41BF-8C89-3677BC4B6237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB8B4C6-55F3-493F-A97F-68AEF1B8D31B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB8B4C6-55F3-493F-A97F-68AEF1B8D31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB8B4C6-55F3-493F-A97F-68AEF1B8D31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB8B4C6-55F3-493F-A97F-68AEF1B8D31B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
