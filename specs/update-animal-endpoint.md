@@ -4,7 +4,7 @@
 Esse endpoint serve para atualizar dados de um animal no sistema
 
 ## Stack
-- C# .NET
+- C# .NET 8.0
 - FluentValidation
 - Entity Framework Core
 - Pattern: Feature Based - Mediatr
@@ -137,7 +137,7 @@ Para atualizar a foto do animal:
 - Verificar se a data "shelterSince" é valida (não deve ser válido selecionar uma data após o dia atual, nem mais de 120 anos atrás)
 
 ## Estrutura de Arquivos Esperada
-src/
+./
 ├── MatchPet.Features/
 │   └── Animals/
 │       └── UpdateAnimal/

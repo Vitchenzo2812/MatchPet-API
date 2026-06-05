@@ -4,7 +4,7 @@
 Esse endpoint serve para buscar um animal específico pelo seu ID no sistema.
 
 ## Stack
-- C# .NET
+- C# .NET 8.0
 - FluentValidation
 - Entity Framework Core
 - Pattern: Feature Based - Mediatr
@@ -55,7 +55,7 @@ GET /animal/{id}
 - Verificar se o animal existe na base de dados (se não existir, lançar um NotFoundError)
 
 ## Estrutura de Arquivos Esperada
-src/
+./
 ├── MatchPet.Features/
 │   └── Animals/
 │       └── GetAnimalById/
