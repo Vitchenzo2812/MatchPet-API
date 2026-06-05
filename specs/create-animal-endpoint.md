@@ -119,7 +119,7 @@ private readonly IFileManagerService _fileManagerService;
 ```
 
 Para salvar a foto do animal:
-- Chamar `_fileManagerService.SaveFile(request.Photo, Guid.NewGuid().ToString())`
+- Chamar `_fileManagerService.SaveFile(request.Photo, animal.Id.ToString())`
 - O retorno é a URL pública da imagem — salvar no campo `Photo` da entidade
 - O método já valida se é base64 válido internamente
 - Em caso de falha lança `InternalServerError` automaticamente — não precisa tratar

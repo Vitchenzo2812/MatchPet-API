@@ -98,10 +98,11 @@ PUT /animal/{id}
 Apenas retorna status 200
 
 ### Response (Erros)
-| Status | Quando |
-|--------|--------|
+| Status | Quando                              |
+|--------|-------------------------------------|
 | 400 | Validação falhou (FluentValidation) |
-| 500 | Erro ao salvar no banco ou S3 |
+| 404 | Animal não encontrado |
+| 500 | Erro ao atualizar no banco ou S3    |
 
 ## Contexto do Projeto
 - As entidades e enums já existem em: `MatchPet.Shared/Models/` (não recriar)
@@ -118,8 +119,8 @@ Injetar via DI no Handler:
 private readonly IFileManagerService _fileManagerService;
 ```
 
-Para salvar a foto do animal:
-- Chamar `_fileManagerService.SaveFile(request.Photo, Guid.NewGuid().ToString())`
+Para atualizar a foto do animal:
+- Chamar `_fileManagerService.SaveFile(request.Photo, animal.Id.ToString())`
 - O retorno é a URL pública da imagem — salvar no campo `Photo` da entidade
 - O método já valida se é base64 válido internamente
 - Em caso de falha lança `InternalServerError` automaticamente — não precisa tratar
@@ -130,6 +131,7 @@ Para salvar a foto do animal:
 
 ## Validações
 - Verificar se os campos não são vazios/nulos
+- Verificar se o animal existe na base de dados (se não existir, lançar um NotFoundError)
 - Caso um animal esteja em tratamento, não deve ser possível adotar/apadrinhar o mesmo
 - Verificar se idade do animal é válida (não pode ser um número negativo)
 - Verificar se a data "shelterSince" é valida (não deve ser válido selecionar uma data após o dia atual, nem mais de 120 anos atrás)
