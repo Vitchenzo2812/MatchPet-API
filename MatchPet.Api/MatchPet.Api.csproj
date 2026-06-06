@@ -7,12 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.25"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MatchPet.Features\MatchPet.Features.csproj" />
       <ProjectReference Include="..\MatchPet.Infrastructure\MatchPet.Infrastructure.csproj" />
     </ItemGroup>
 

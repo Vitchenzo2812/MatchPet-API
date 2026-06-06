@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MatchPet.Api.Extensions;
 using System.Text;
 
 namespace MatchPet.Api;
@@ -17,9 +18,11 @@ public class Startup
   public void ConfigureServices(IServiceCollection services, ConfigurationManager configuration)
   {
     services
+      .AddDependencyInversion()
+      .AddValidators()
       .AddControllers()
       .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
+    
     services.AddSwaggerGen(opt =>
     {
       opt.AddJwtAuth();
@@ -96,8 +99,6 @@ public class Startup
 
     app.UseAuthentication();
     app.UseAuthorization();
-
-    // app.UseMiddleware<AuthorizationMiddleware>();
     
     app.UseEndpoints(endpoints => endpoints.MapControllers());
     

@@ -10,4 +10,13 @@
       <Folder Include="Forms\Adopt\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MatchPet.Infrastructure\MatchPet.Infrastructure.csproj" />
+      <ProjectReference Include="..\MatchPet.Shared\MatchPet.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
+    </ItemGroup>
+
 </Project>

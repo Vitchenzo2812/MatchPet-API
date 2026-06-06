@@ -5,6 +5,7 @@ namespace MatchPet.Infrastructure.Database;
 
 public class MatchPetDbContext : DbContext
 {
+  public DbSet<Animal> Animals { get; set; }
   public DbSet<AdoptForm> AdoptForms { get; set; }
   public DbSet<SponsorForm> SponsorForms { get; set; }
   
