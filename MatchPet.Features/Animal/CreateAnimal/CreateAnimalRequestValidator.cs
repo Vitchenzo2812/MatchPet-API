@@ -57,7 +57,7 @@ public class CreateAnimalRequestValidator : AbstractValidator<CreateAnimalReques
         
         RuleFor(x => x.IsReadyTo)
             .Must((request, isReadyTo) =>
-                !request.IsUnderTreatment || isReadyTo)
+                !(isReadyTo && request.IsUnderTreatment))
             .WithMessage("Se o animal estiver em tratamento, ele não pode estar pronto para adoção ou apadrinhamento");
   }
 }

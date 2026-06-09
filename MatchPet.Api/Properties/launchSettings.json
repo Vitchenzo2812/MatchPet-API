@@ -16,7 +16,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5092",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MYSQL_MATCHPET_CONNECTION_STRING": "Server=localhost;Port=3307;Database=matchpet;Uid=root;Pwd=root;SSL Mode=None;AllowPublicKeyRetrieval=True;"
       }
     },
     "https": {

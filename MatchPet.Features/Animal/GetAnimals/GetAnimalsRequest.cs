@@ -1,6 +1,14 @@
+using MatchPet.Shared.Models;
+
 namespace MatchPet.Features.Animal.GetAnimals;
 
-public class GetAnimalsRequest
-{
-  
-}
+public record GetAnimalsRequest(
+  AnimalType? Type,
+  AnimalGender? Gender,
+  AnimalSupportType? SupportType,
+  bool? IsVaccinated,
+  bool? IsSterilized,
+  bool? IsUnderTreatment,
+  bool? IsReadyTo,
+  AnimalAgeRange? AgeRange
+);

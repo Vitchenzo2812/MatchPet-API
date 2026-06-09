@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using MatchPet.Infrastructure.Services.Contracts;
 using MatchPet.Infrastructure.Web.Middlewares;
 using MatchPet.Infrastructure.Web.Swagger;
-using MatchPet.Infrastructure.Services;
 using MatchPet.Infrastructure.Database;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
@@ -15,7 +13,7 @@ namespace MatchPet.Api;
 
 public class Startup
 {
-  public void ConfigureServices(IServiceCollection services, ConfigurationManager configuration)
+  public void ConfigureServices(IServiceCollection services)
   {
     services
       .AddDependencyInversion()
@@ -46,14 +44,8 @@ public class Startup
           .AllowAnyMethod();
       });
     });
-
-    services.AddStackExchangeRedisCache(opt =>
-    {
-      opt.Configuration = configuration["Redis:Connection"];
-    });
     
-    ConfigureDbContext(services, configuration);
-    ConfigureDependencies(services);
+    ConfigureDbContext(services);
     
     var secret = Environment.GetEnvironmentVariable("JWT_SECRET");
 
@@ -80,8 +72,17 @@ public class Startup
       });
   }
 
+  private void MigrateDatabase (IApplicationBuilder app)
+  {
+    var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<MatchPetDbContext>();
+    dbContext.Database.Migrate();
+  }
+  
   public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
   {
+    MigrateDatabase(app);
+    
     if (env.IsDevelopment())
       app.UseDeveloperExceptionPage();
 
@@ -104,22 +105,16 @@ public class Startup
     
     app.UseHttpsRedirection();
   }
-
-  private static void ConfigureDependencies(IServiceCollection services)
-  {
-    services.AddScoped<ICacheService, RedisCacheService>();
-  }
   
-  private static void ConfigureDbContext(IServiceCollection services, ConfigurationManager configuration)
+  private static void ConfigureDbContext(IServiceCollection services)
   {
-    var connectionString = configuration.GetConnectionString("MatchPet") ?? string.Empty;
-    
     services.AddDbContext<MatchPetDbContext>((_, options) =>
     {
       options
         .UseMySql(
-          connectionString,
-          new MySqlServerVersion(new Version())
+          Environment.GetEnvironmentVariable("MYSQL_MATCHPET_CONNECTION_STRING"),
+          new MySqlServerVersion(new Version()),
+          opt => opt.EnableRetryOnFailure()
         )
         .EnableSensitiveDataLogging()
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

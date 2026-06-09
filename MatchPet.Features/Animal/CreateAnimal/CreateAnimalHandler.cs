@@ -1,13 +1,11 @@
 using MatchPet.Infrastructure.Repository.Contracts;
 using AnimalEntity = MatchPet.Shared.Models.Animal;
 using MatchPet.Infrastructure.Database.Contracts;
-using MatchPet.Infrastructure.Services.Contracts;
 
 namespace MatchPet.Features.Animal.CreateAnimal;
 
 public class CreateAnimalHandler (
   IAnimalRepository animalRepository,
-  IFileManagerService fileManagerService,
   IUnitOfWork unitOfWork
 ) : IBaseHandler<CreateAnimalRequest>
 {
@@ -20,6 +18,7 @@ public class CreateAnimalHandler (
       request.Type,
       request.Size,
       request.SupportType,
+      request.Photo,
       request.Age,
       request.ShelterSince,
       request.IsVaccinated,
@@ -28,10 +27,6 @@ public class CreateAnimalHandler (
       request.IsReadyTo,
       request.Breed
     );
-
-    var photo = await fileManagerService.SaveFile(request.Photo, animal.Id.ToString());
-
-    animal.UpdatePhoto(photo);
     
     animalRepository.Save(animal);
     await unitOfWork.SaveChangesAsync();

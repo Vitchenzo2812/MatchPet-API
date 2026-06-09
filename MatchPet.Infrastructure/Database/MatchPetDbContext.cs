@@ -1,3 +1,4 @@
+using MatchPet.Infrastructure.Database.Converters;
 using Microsoft.EntityFrameworkCore;
 using MatchPet.Shared.Models;
 
@@ -14,5 +15,20 @@ public class MatchPetDbContext : DbContext
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);
+    
+    var emailConverter = new EmailConverter();
+    var phoneConverter = new PhoneConverter();
+
+    modelBuilder.Entity<AdoptForm>(b =>
+    {
+      b.Property(x => x.Email).HasConversion(emailConverter);
+      b.Property(x => x.Phone).HasConversion(phoneConverter);
+    });
+
+    modelBuilder.Entity<SponsorForm>(b =>
+    {
+      b.Property(x => x.Email).HasConversion(emailConverter);
+      b.Property(x => x.Phone).HasConversion(phoneConverter);
+    });
   }
 }

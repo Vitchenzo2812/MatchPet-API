@@ -1,6 +1,3 @@
-using MatchPet.Shared.Extensions;
-using MatchPet.Shared.Errors;
-
 namespace MatchPet.Shared.Models;
 
 public class Animal : Entity
@@ -11,7 +8,7 @@ public class Animal : Entity
   public required AnimalType Type { get; set; }
   public required AnimalSize Size { get; set; }
   public required AnimalSupportType SupportType { get; set; }
-  public string Photo { get; set; }
+  public required string Photo { get; set; }
   public required int Age { get; set; }
   public string? Breed { get; set; }
   public required DateTime ShelterSince { get; set; }
@@ -27,6 +24,7 @@ public class Animal : Entity
     AnimalType type,
     AnimalSize size,
     AnimalSupportType supportType,
+    string photo,
     int age,
     DateTime shelterSince,
     bool isVaccinated,
@@ -44,6 +42,7 @@ public class Animal : Entity
       Type = type,
       Size = size,
       SupportType = supportType,
+      Photo = photo,
       Age = age,
       ShelterSince = shelterSince,
       IsVaccinated = isVaccinated,
@@ -54,12 +53,87 @@ public class Animal : Entity
     };
   }
 
-  public Animal UpdatePhoto(string urlPhoto)
+  public Animal UpdateName(string name)
   {
-    if (string.IsNullOrEmpty(urlPhoto) || urlPhoto.IsBase64())
-      throw new BadRequestError("A foto deve ser uma URL");
-    
-    Photo = urlPhoto;
+    Name = name;
+    return this;
+  }
+
+  public Animal UpdateDescription(string description)
+  {
+    Description = description;
+    return this;
+  }
+
+  public Animal UpdateGender(AnimalGender gender)
+  {
+    Gender = gender;
+    return this;
+  }
+
+  public Animal UpdateType(AnimalType type)
+  {
+    Type = type;
+    return this;
+  }
+
+  public Animal UpdateSize(AnimalSize size)
+  {
+    Size = size;
+    return this;
+  }
+
+  public Animal UpdateSupportType(AnimalSupportType supportType)
+  {
+    SupportType = supportType;
+    return this;
+  }
+
+  public Animal UpdateAge(int age)
+  {
+    Age = age;
+    return this;
+  }
+
+  public Animal UpdateShelterSince(DateTime shelterSince)
+  {
+    ShelterSince = shelterSince;
+    return this;
+  }
+
+  public Animal UpdateIsVaccinated(bool isVaccinated)
+  {
+    IsVaccinated = isVaccinated;
+    return this;
+  }
+
+  public Animal UpdateIsSterilized(bool isSterilized)
+  {
+    IsSterilized = isSterilized;
+    return this;
+  }
+
+  public Animal UpdateIsUnderTreatment(bool isUnderTreatment)
+  {
+    IsUnderTreatment = isUnderTreatment;
+    return this;
+  }
+
+  public Animal UpdateIsReadyTo(bool isReadyTo)
+  {
+    IsReadyTo = isReadyTo;
+    return this;
+  }
+
+  public Animal UpdateBreed(string? breed)
+  {
+    Breed = breed;
+    return this;
+  }
+  
+  public Animal UpdatePhoto(string photo)
+  {
+    Photo = photo;
     return this;
   }
 }
