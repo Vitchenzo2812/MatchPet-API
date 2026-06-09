@@ -7,22 +7,19 @@ networks:
     name: matchpet
 
 services:
-  api:
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    container_name: matchpet-api
-    ports:
-      - "8080:80"
-    depends_on:
-      - mysql
-      - redis
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__MatchPet=server=mysql;port=3306;database=matchpet;user=root;password=root
-      - Redis__Connection=redis:6379
-    networks:
-      - matchpet
+#  api:
+#    build:
+#      context: ..
+#      dockerfile: Dockerfile
+#    container_name: matchpet-api
+#    ports:
+#      - "8080:80"
+#    depends_on:
+#      - mysql
+#    environment:
+#      - MYSQL_MATCHPET_CONNECTION_STRING=Server=localhost;Port=3306;Database=matchpet;Uid=root;Pwd=root;SSL Mode=None;
+#    networks:
+#      - matchpet
   
   mysql:
     image: mysql:9.0
@@ -38,14 +35,6 @@ services:
     networks:
       - matchpet
   
-  redis:
-    image: redis:7
-    container_name: matchpet-redis
-    ports:
-      - "6379:6379"
-    networks:
-      - matchpet
-  
   adminer:
     image: adminer
     container_name: matchpet-adminer
@@ -57,21 +46,5 @@ services:
     networks:
       - matchpet
 
-  s3:
-    image: localstack/localstack:latest
-    container_name: matchpet-s3
-    environment:
-      - SERVICES=s3
-      - AWS_DEFAULT_REGION=us-east-1
-      - EDGE_PORT=4566
-      - DATA_DIR=/tmp/localstack/data
-    ports:
-      - "4566:4566"
-    volumes:
-      - localstack-data:/tmp/localstack/data
-    networks:
-      - matchpet
-
 volumes:
   mysql-data:
-  localstack-data:
